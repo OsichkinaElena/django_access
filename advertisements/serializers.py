@@ -44,7 +44,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         method = self.context['request'].method
         print(self.context['request'])
         status_ = data.get('status')
-        if method == 'POST' or instance.status == 'CLOSED' and status_ == 'OPEN':
+        if method == 'POST' or self.instance.status == 'CLOSED' and status_ == 'OPEN':
             if Advertisement.objects.filter(creator=creator, status='OPEN').count() >=10:
                 raise ValidationError("Количество открытых объявлений не может быть больше 10")
         return data
